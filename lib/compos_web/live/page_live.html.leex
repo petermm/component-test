@@ -4,5 +4,5 @@
 
   <%= live_patch "SecondPage", to: Routes.live_path(@socket, ComposWeb.SecondPageLive) %>
   <br/>
-  <%= live_component @socket, ComposWeb.CartComponent, id: :cart_component %>
+  <%= live_component @socket, ComposWeb.CartComponent, id: :cart_component, socketParams: @socketParams %>
 </section>

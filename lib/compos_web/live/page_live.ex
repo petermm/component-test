@@ -4,14 +4,13 @@ defmodule ComposWeb.PageLive do
   @impl true
   def mount(_params, _session, socket) do
     IO.puts("PAGELIVE MOUNT runs")
+
     socketParams = if connected?(socket), do: get_connect_params(socket), else: %{}
     IO.inspect(socketParams)
 
     {:ok,
      assign(socket,
-       query: "",
-       socketParams: socketParams,
-       results: %{}
+       socketParams: socketParams
      )}
   end
 end

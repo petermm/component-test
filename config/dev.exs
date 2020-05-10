@@ -3,7 +3,7 @@ use Mix.Config
 # Configure your database
 config :compos, Compos.Repo,
   username: "postgres",
-  password: ENV["DB_PASS"],
+  password: System.get_env("DB_PASS"),
   database: "compos_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,

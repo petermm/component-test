@@ -2,27 +2,22 @@ defmodule ComposWeb.CartComponent do
   use Phoenix.LiveComponent
 
   def mount(socket) do
-    shoppingCart = %{
-      total: 0
-    }
+    IO.puts("CartComponent mount")
 
-    if connected?(socket) do
-      # shoppingCart = Map.get(socket.socketParams, "shoppingCart", %{})
-      IO.puts("CartComponent mount connected")
-      IO.inspect(socket, printable_limit: :infinity)
-    end
-
-    {:ok,
-     assign(socket,
-       shoppingCart: shoppingCart
-     )}
+    {:ok, socket}
   end
 
   def update(assigns, socket) do
     IO.puts("CartComponent update")
     IO.inspect(assigns)
-    IO.inspect(socket)
-    {:ok, socket}
+    shoppingCart = %{}
+
+    if connected?(socket) do
+      IO.puts("Component connected")
+      shoppingCart = Jason.decode!(Map.get(assigns.socketParams, "shoppingCart"))
+    end
+
+    {:ok, assign(socket, :shoppingCart, shoppingCart)}
   end
 
   def render(assigns) do
@@ -30,6 +25,7 @@ defmodule ComposWeb.CartComponent do
 
     ~L"""
     <div phx-hook="CartComponent" id="cartcomponent" data-shopping-cart="<%= shoppingCart %>">
+    <%= Map.get(assigns.shoppingCart,:total) %>
     <br/>
     <br/>
     <br/>
