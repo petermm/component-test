@@ -8,7 +8,7 @@ defmodule Compos.Application do
   def start(_type, _args) do
     children = [
       # Start the Ecto repository
-      Compos.Repo,
+      # Compos.Repo,
       # Start the Telemetry supervisor
       ComposWeb.Telemetry,
       # Start the PubSub system
