@@ -10,11 +10,13 @@ defmodule ComposWeb.CartComponent do
   def update(assigns, socket) do
     IO.puts("CartComponent update")
     IO.inspect(assigns)
-    shoppingCart = %{}
 
-    if connected?(socket) do
+
+    shoppingCart = if connected?(socket) do
       IO.puts("Component connected")
-      shoppingCart = Jason.decode!(Map.get(assigns.socketParams, "shoppingCart"))
+      Jason.decode!(Map.get(assigns.socketParams, "shoppingCart"))
+    else
+      %{}
     end
 
     {:ok, assign(socket, :shoppingCart, shoppingCart)}
@@ -25,7 +27,7 @@ defmodule ComposWeb.CartComponent do
 
     ~L"""
     <div phx-hook="CartComponent" id="cartcomponent" data-shopping-cart="<%= shoppingCart %>">
-    <%= Map.get(assigns.shoppingCart,:total) %>
+    <div><%= Map.get(assigns.shoppingCart,"total") %></div>
     <br/>
     <br/>
     <br/>
@@ -36,7 +38,7 @@ defmodule ComposWeb.CartComponent do
 
   def handle_event("component-click", _value, socket) do
     shoppingCart = %{
-      total: Enum.random(10..1000)
+      "total" => Enum.random(10..1000)
     }
 
     {:noreply, assign(socket, :shoppingCart, shoppingCart)}
